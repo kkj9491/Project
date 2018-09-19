@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-<title>Insert title here</title>
+<title>Test title</title>
 </head>
 <body>
 </body>
