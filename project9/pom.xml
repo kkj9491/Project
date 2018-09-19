@@ -9,8 +9,10 @@
   <url>http://maven.apache.org</url>
   	<properties>
 		<java-version>1.8</java-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<org.springframework-version>4.3.8.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.aspectj-version>1.8.9</org.aspectj-version>
 		<org.slf4j-version>1.7.18</org.slf4j-version>
 	</properties>  
   
@@ -23,6 +25,18 @@
         </dependency>
         
         <!-- Spring 4 dependencies -->
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>
+		</dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -48,6 +62,17 @@
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>        
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+        
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
