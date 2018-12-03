@@ -103,6 +103,7 @@ public class SampleCtr {
 		beans.put("listview", listview);
 		
 		MakeExcel me = new MakeExcel();
+		me.download(request, response, beans, me.get_Filename("project9"), "board.xlsx");
 	
 	}
 	
