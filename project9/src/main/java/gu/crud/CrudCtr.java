@@ -49,8 +49,59 @@ public class CrudCtr {
 	// 쓰기
 	@RequestMapping(value = "/crudForm")
 	public String crudForm(HttpServletRequest request, CrudVO crudInfo, ModelMap modelMap) {
+		// 페이지 공통 : alert
+		String userno = request.getSession().getAttribute("userno").toString();
 		
+		Integer alertcount = etcSvc.selectAlertCount(userno);
+		modelMap.addAttribute("alertcount", alertcount);
 		
-		return null;
+		// CRUD 관련
+		if (crudInfo.getCrno() != null) {
+			crudInfo = crudSvc.selectCrudOne(crudInfo);
+			
+			modelMap.addAttribute("crudInfo", crudInfo);
+		}
+				
+		return "crud/CrudForm";
+	}
+	
+	
+	// 저장
+	@RequestMapping(value = "/crudSave")
+	public String crudSave(HttpServletRequest request, CrudVO crudInfo, ModelMap modelMap) {
+		String userno = request.getSession().getAttribute("userno").toString();
+		crudInfo.setUserno(userno);
+		
+		crudSvc.insertCrud(crudInfo);		
+		
+		return "redirect:/crudList";
+	}
+	
+	
+	// 읽기
+	@RequestMapping(value = "/crudRead")
+	public String crudRead(HttpServletRequest request, CrudVO crudVO, ModelMap modelMap) {
+		// 페이지 공통 : alert
+		String userno = request.getSession().getAttribute("userno").toString();
+		
+		Integer alertcount= etcSvc.selectAlertCount(userno);
+		modelMap.addAttribute("alertcount", alertcount);
+		
+		// CRUD 관련
+		CrudVO crudInfo = crudSvc.selectCrudOne(crudVO);
+		
+		modelMap.addAttribute("crudInfo", crudInfo);
+		
+		return "crud/CrudRead";
+	}
+	
+	
+	// 삭제
+	@RequestMapping(value= "/crudDelete")
+	public String crudDelete(HttpServletRequest request, CrudVO crudVO) {
+		
+		crudSvc.deleteCrud(crudVO);
+		
+		return "redirect:/crudList";
 	}
 }
