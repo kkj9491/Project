@@ -54,8 +54,8 @@ function fn_formSubmit(){
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="listHiddenField pull-left field60"><s:message code="board.no" /></div>
-					<div class="listHiddenField pull-left field100"><s:message code="crud.crdate" /></div>
-					<div class="listHiddenField pull-left field100"><s:message code="crud.usernm" /></div>
+					<div class="listHiddenField pull-right field100"><s:message code="crud.crdate" /></div>
+					<div class="listHiddenField pull-right field100"><s:message code="crud.usernm" /></div>
 					<div class="listTitle"><s:message code="crud.crtitle" /></div>
 				</div>
 				
@@ -70,10 +70,22 @@ function fn_formSubmit(){
 					</c:url>
 					
 					<div class="listBody">
-						
-					</div>
-				
+						<div class="listHiddenField pull-left field60 textCenter"><c:out value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"/></div>
+						<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.crdate}"/></div>
+						<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.usernm}"/></div>
+						<div class="listTitle" title="<c:out value="${listview.crtitle}"/>">
+							<a href="${link}"><c:out value="${listview.crtitle}"/></a>							
+						</div>
+					</div>				
 				</c:forEach>
+				
+				<br/>
+				<form role="form" id="form1" name="form1" method="post">
+					<jsp:include page="../common/pagingforSubmit.jsp" />
+				
+					
+				
+				</form>							
 							
 			</div>		
 			<!-- panel panel-default -->
