@@ -1,1 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<sql id="includeCrud">
+		
+	
+	</sql>
+
+	
+	<select id="selectCrudCount" resultType="Integer" parameterType="gu.common.SearchVO">>
+	
+	
+	</select>
+
+	
+	<select id="selectCrudList" resultType="gu.crud.CrudVO" parameterType="gu.common.SearchVO">
+	
+	
+	</select>
+
+
+	<insert id="insertCrud" parameterType="gu.crud.CrudVO">
+	
+	
+	</insert>
+
+
+	<update id="updateCrud" parameterType="gu.crud.CrudVO">
+	
+	
+	</update>
+
+
+	<select id="selectCrudOne" parameterType="gu.crud.CrudVO" resultType="gu.crud.CrudVO">
+	
+	
+	</select>
+	
+	
+	<delete id="deleteCrud" parameterType="gu.crud.CrudVO">
+	
+	
+	</delete>
+	
+	
+	<delete id="deleteChk" parameterType="java.util.Map">
+	
+	
+	</delete>
+</mapper>
