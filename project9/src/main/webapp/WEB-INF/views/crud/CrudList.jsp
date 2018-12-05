@@ -82,9 +82,28 @@ function fn_formSubmit(){
 				<br/>
 				<form role="form" id="form1" name="form1" method="post">
 					<jsp:include page="../common/pagingforSubmit.jsp" />
-				
 					
-				
+					<div class="form-group">
+						<div class="checkbox col-lg-3 pull-left">
+							<label class="pull-right">
+								<input type="checkbox" name="searchType" value="crtitle" <c:if test="${fn:indexOf(searchVO.searchType, 'crtitle')!=-1}">checked="checked"</c:if>/>
+								<s:message code="crud.crtitle"></s:message>
+							</label>
+							<label class="pull-right">
+								<input type="checkbox" name="searchType" value="crmemo" <c:if test="${fn:indexOf(searchVO.searchType, 'crmemo')!=-1}">checked="checked"</c:if>/>
+								<s:message code="crud.crmemo"></s:message>
+							</label>						
+						</div>						
+						<div class="input-group custom-search-form col-lg-3">
+							<input class="form-control" placeholder="Search..." type="text" name="searchKeyword"
+									value='<c:out value="${searchVO.searchKeyword}"/>'>
+							<span class="input-group-btn">
+								<button class="btn btn-default" onclick="fn_formSubmit()">
+									<i class="fa fa-search"></i>							
+								</button>							
+							</span>									
+						</div>
+					</div>				
 				</form>							
 							
 			</div>		

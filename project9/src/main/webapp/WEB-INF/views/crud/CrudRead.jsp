@@ -22,12 +22,30 @@
     <script src="css/sb-admin/metisMenu.min.js"></script>
     <script src="css/sb-admin/sb-admin-2.js"></script>
 	<script src="js/project9.js"></script> 
-	
-	
+
+<script type="text/javascript">
+</script>	
 </head>
 
 <body>
 
+	<div id="wrapper">
+	
+		<jsp:include page="../common/navigation.jsp"/>
+	
+		<div id="page-wrapper">
+			<div class="row">
+				
+			
+			</div>
+			<!-- row -->
+		
+		
+		</div>
+		<!-- page-wrapper -->
+	
+	</div>
+	<!-- wrapper -->
 
 </body> 
 
