@@ -53,10 +53,31 @@ function fn_formSubmit(){
 }
 
 function fn_changePW(){
-	
-	
+	$("#userpw").val("");
+	$("#userpw2").val("");
+	$('#myModal').modal("show");	
 }
 
+function fn_changePWSave(){
+	if(!chkInputValue("#userpw", "<s:message code="common.password"/>")) return false;
+	if(!chkInputValue("#userpw2", "<s:message code="common.passwordRe"/>")) return false;
+	if($("#userpw").val() !== $("#userpw2").val()){
+		alert("<s:message code="msg.err.noMatchPW"/>");
+		return false;
+	}
+	
+	$.ajax({
+		url : "changePWSave",
+		type : "post",
+		data : {userpw:$("#userpw").val()},
+		success : function(result){
+			if(result ==="OK"){
+				alert("<s:message code="msg.changeComplete"/>");
+			}				
+		}		
+	})
+	$("#myModal").modal("hide");
+}
 
 </script>	
 	
