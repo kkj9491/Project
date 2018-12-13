@@ -31,11 +31,111 @@
 var selectedNode = null;
 
 $(function(){
+	$("#tree").dynatree({
+		children: <c:out value="${treeStr}" escapeXml="false"/>,
+		onActivate: TreenodeActivate
+	});
+	$("#tree").dynatree("getRoot").visit(function(node){
+		node.expand(true)
+	});
+	fn_groupNew();
+});
+function TreenodeActivate(node){
+	selectedNode = node;
 	
-})
+	if(selectedNode==null || selectedNode.data.key==0) return;
+	$.ajax({
+		url: "abBoardGroupRead",
+		cache: false,
+		data: {bgno:selectedNode.data.key}
+	}).done(receiveData);
+}
 
-</script>	
+function receiveData(data){
+	$("#bgno").val(data.bgno);
+	$("#bgname").val(data.bgname);
+	$('input:radio[name="bgused"][value="' + data.bgused + '"]').prop('checked', true);
+	$('input:radio[name="bgreadonly"][value="' + data.bgreadonly + '"]').prop('checked', true);
+	$('input:radio[name="bgreply"][value="' + data.bgreply + '"]').prop('checked', true);
+	$('input:radio[name="bgnotice"][value="' + data.bgnotice + '"]').prop('checked', true);
+}
+
+function fn_groupNew(){
+	$("#bgno").val("");
+	$("#bgname").val("");
+	$('input:radio[name="bgused"][value="Y"]').prop('checked', true);
+	$('input:radio[name="bgreadonly"][value="N"]').prop('checked', true);
+	$('input:radio[name="bgreply"][value="Y"]').prop('checked', true);
+	$('input:radio[name="bgnotice"][value="Y"]').prop('checked', true);	
+}
+
+function fn_groupDelete(value){
+	if(selectedNode==null){
+		alert("<s:message code="msg.err.boardDelete"/>");
+		return;
+	}
+	if(selectedNode.childList){
+		alert("<s:message code="msg.err.boardDelete4Child"/>");
+		return;
+	}
 	
+	if(!confirm("<s:message code="ask.Delete"/>")) return;
+	$.ajax({
+		url: "abBoardGroupDelete",
+		cache: false,
+		data: {bgno:selectedNode.data.key}
+	}).done(receiveData4Delete);
+}
+
+function receiveData4Delete(data){
+	alert("<s:message code="msg.boardDelete"/>");
+	selectedNode.remove();
+	selectedNode = null;
+	fn_groupNew();
+}
+
+function fn_groupSave(){
+	if($("#bgname").val() == ""){
+		alert("<s:message code="msg.boardInputName"/>");
+		return;
+	}
+	var pid = null;
+	if(selectedNode!=null)pid=selectedNode.data.key;
+	
+	if(!confirm("<s:message code="ask.Save"/>")) return;
+	
+	$.ajax({
+		url: "abBoardGroupSave",
+		cache: false,
+		type: "POST",
+		data: {bgno:$("#bgno").val(), bgname:$("#bgname").val(), bgparent: pid,
+			bgused:$("input:radio[name=bgused]:checked").val(), 
+			bgreadonly:$("input:radio[name=bgreadonly]:checked").val(),
+			bgreply:$("input:radio[name=bgreply]:checked").val(),
+			bgnotice:$("input:radio[name=bgnotice]:checked").val()}
+	}).done(receiveData4Save);	
+}
+
+function receiveData4Save(data){
+	if(selectedNode!==null && selectedNode.data.key===data.bgno){
+		selectedNode.data.title=data.bgname;
+		selectedNode.render();
+	}else{
+		addNode(data.bgno, data.bgname);
+	}
+	
+	alert("<s:message code="msg.boardSave"/>");
+}
+
+function addNode(nodeNo, nodeTitle){
+	var node= $("#tree").dynatree("getActiveNode");
+	if(!node) node = $("#tree").dynatree("getRoot");
+	var childNode = node.addChild({key: nodeNo, title: nodeTitle});
+	node.expand();
+	node.data.isFolder=true;
+	node.tree.redraw();
+}
+</script>	
 </head>
 
 <body>
