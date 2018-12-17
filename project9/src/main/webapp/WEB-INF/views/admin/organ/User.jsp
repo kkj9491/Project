@@ -37,7 +37,80 @@
 
 <body>
 
-
+	<div id="wrapper">
+		<jsp:include page="../../common/navigation.jsp"/>
+		
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header"><i class="fa fa0user fa-fw"></i><s:message code="menu.user"/></h1>								
+				</div>			
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<s:message code="common.deptList"/>						
+						</div>
+						<div style="max-height:400px;overflow:auto;">
+							<div id="tree">							
+							</div>
+						</div>				
+					</div>				
+				</div>
+				
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<s:message code="common.userList"/>
+							<button class="btn btn-outline btn-primary pull-right" onclick="fn_addUser()"><s:message code="board.append"/></button>
+						</div>
+						<div class="panel-body" id="userlist">						
+						</div>
+					</div>				
+				</div>			
+			</div>	
+		</div>	
+		<!-- page-wrapper -->
+	</div>
+	<!-- wrapper -->
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" id="closeX" class="close" data-dismiss="modal" aria-hidden="true">&times</button>	
+					<h4 class="modal-title" id="myModalLabel"><s:message code="menu.user"/></h4>
+				</div>
+				<div class="modal-body">
+					<form id="form1" name="form1">
+						<input type="hidden" name="userno" id="userno">
+						<input type="hidden" name="deptno" id="deptno">
+						<div class="row form-group">
+							<div class="col-lg-1"></div>
+							<label class="col-lg-2"><s:message code="common.id"/></label>
+							<div class="col-lg-5">
+								<input type="text" class="form-control" id="userid" name="userid" maxlength="20">								
+							</div>
+							<div class="col-lg-4">
+								<button type="button" class="btn btn-default" onclick="fn_chkUserid()"><s:message code="common.idchk"/></button>
+							</div>							
+						</div>
+						
+						<div class="row form-group">
+						
+						</div>
+					</form>				
+				
+				</div>
+				<!-- modal-body -->
+			</div>
+			<!-- modal-content -->
+		</div>	
+		<!-- modal-dialog -->
+	</div>
+	<!-- modal -->
 </body>
 
 </html>
