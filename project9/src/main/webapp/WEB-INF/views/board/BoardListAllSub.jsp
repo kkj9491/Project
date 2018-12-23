@@ -19,7 +19,27 @@
 		</div>
 		
 		<div class="listHiddenField pull-right field100"><a href="boardList?bgno=<c:out value="${listitem.bgno}"/>"><c:out value="${listitem.bgname}"/></a></div>
-				
-		
-	
+		<div class="listHiddenField pull-right field60">
+			<c:if test="${listitem.filecnt > 0}">
+				<i class="fa fa-download fa-fw" title="<c:out value="${listitem.filecnt}"/>"></i>			
+			</c:if>
+		</div>
+		<div class="listHiddenField pull-right field60 textCenter"><c:out value="${listitem.brdhit}"/></div>
+		<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listitem.brddate}"/></div>
+		<div class="listHiddenField pull-right field100 textCenter"><a href="list4User?userno=<c:out value="${listitem.userno}"/>"><c:out value="${listitem.brdwriter}"/></a></div>
+		<div class="listTitle" title="<c:out value="${listitem.brdtitle}"/>">
+			<a href="${link}" <c:if test="${listitem.brdnotice=='Y'}">class="notice"</c:if>><c:out value="${listitem.brdtitle}"/></a>
+			<c:if test="${listitem.replycnt > 0}">
+				(<c:out value="${listitem.replycnt}"/>)
+			</c:if>			
+		</div>
+		<div class="showField text-muted small">
+			<c:out value="${listitem.brdwriter}"/>
+			<c:out value="${listitem.brddate}"/>
+			<i class="fa fa-eye fa-fw"></i><c:out value="listitem.brdhit"/>
+			<c:if test="${listitem.filecnt>0 }">
+				<i class="fa fa-download fa-fw" title="<c:out value="${listitem.filecnt}"/>"></i>			
+			</c:if>
+			[<a href="boardList?bgno=<c:out value="${listitem.bgno}"/>"><c:out value="${listitem.bgname}"/></a>]		
+		</div>	
 	</div>

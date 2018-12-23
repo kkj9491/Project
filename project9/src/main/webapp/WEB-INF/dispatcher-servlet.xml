@@ -14,7 +14,7 @@
 	<!--  컨트롤러등을 찾는 기본 패키지 경로  -->
 	<context:component-scan base-package="gu" />
 	
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 	    <mvc:interceptor>
 	       <mvc:mapping path="/**"/>  
 	       <mvc:exclude-mapping path="/memberLogin"/> 
@@ -27,8 +27,8 @@
 	       <mvc:mapping path="/ad*"/>  
 	       <bean class="gu.common.AdminInterceptor"/>
 	    </mvc:interceptor>
-	</mvc:interceptors> -->
-	
+	</mvc:interceptors>
+		
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix"><value>/WEB-INF/views/</value></property>
 		<property name="suffix"><value>.jsp</value></property>
