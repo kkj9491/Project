@@ -2,6 +2,8 @@ package gu.etc;
 
 import java.util.List;
 
+import gu.board.BoardSearchVO;
+
 public interface EtcSvc {
 
 	public Integer selectAlertCount(String param);
@@ -10,8 +12,8 @@ public interface EtcSvc {
 	
 	public List<?> selectAlertList(String param);
 	
-	/*public Integer selectList4UserCount(BoardSearchVO param);
+	public Integer selectList4UserCount(BoardSearchVO param);
 	
-	public List<?> selectList4User(BoardSearchVO param);*/
+	public List<?> selectList4User(BoardSearchVO param);
 	
 }

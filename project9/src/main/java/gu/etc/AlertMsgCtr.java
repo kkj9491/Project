@@ -1,5 +1,7 @@
 package gu.etc;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,24 @@ public class AlertMsgCtr {
 	public String alertList(HttpServletRequest request, ModelMap modelMap) {
 		String userno = request.getSession().getAttribute("userno").toString();
 		
+		List<?> listview = etcSvc.selectAlertList(userno);
 		
-		return null;
+		modelMap.addAttribute("listview", listview);
+		
+		return "etc/alertList";
 	}
+	
+	
+	//alert리스트 top5
+	@RequestMapping(value = "/alertList4Ajax")
+	public String alertList4Ajax(HttpServletRequest request, ModelMap modelMap) {
+		String userno = request.getSession().getAttribute("userno").toString();
+		
+		List<?> listview = etcSvc.selectAlertList4Ajax(userno);
+		
+		modelMap.addAttribute("listview", listview);
+		
+		return "etc/alertList4Ajax";
+	}
+	
 }
