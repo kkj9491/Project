@@ -70,9 +70,111 @@ function fn_replyDelete(reno){
 var updateReno = updateRememo = null
 
 function fn_replyUpdate(reno){
+	hideDiv("#replyDialog");
 	
+	if(updateReno){
+		$("#replyDiv").appendTo(document.body);
+		$("reply"+updateReno).text(updateRememo);
+	}
+	updateReno		= reno;
+	updateRememo	= $("#reply"+reno).html();
 	
+	$("#reno2").val(reno);
+	$("#rememo2").val(html2Text(updateRememo));
+	$("#reply"+reno).text("");
+	$("#replyDiv").appendTo($("#reply"+reno));
+	$("#replyDiv").show();
+	$("#rememo2").focus();
+}
+
+function fn_replyUpdateSave(){
+	if(!chkInputValue("#rememo2", "<s:message code="board.contents"/>")) return;
 	
+	$.ajax({
+		url: "boardReplySave",
+		type: "post",
+		data: {brdno:$("#brdno").val(), reno: updateReno, rememo: $("#rememo2").val()},
+		success: function(result){
+			if(result!==""{
+				$("#replyDiv").appendTo(document.body);
+				$("#replyDiv").hide();
+				$("#reply"+updateReno).html(text2Html($("#rememo2").val()));
+				alert("<s:message code="msg.boardSave"/>");				
+			}) else{
+				alert("<s:message code="msg.err.save4error"/>");
+			}
+			updateReno = updateRememo = null;
+		}		
+	})	
+}
+
+function fn_replyUpdateCancel(){
+	hideDiv("#replyDiv");
+	
+	$("#reply" + updateReno).html(updateRememo);
+	updateReno = updateRememo = null;	
+}
+
+function hideDiv(id){
+	$(id).hide();
+	$(id).appendTo(document.body);
+}
+
+function fn_replyReply(reno){
+	$("#replyDialog").show();
+	
+	if(updateReno){
+		fn_replyUpdateCancel();
+	}
+	
+	$("#reparent3").val(reno);
+	$("#rememo3").val("");
+	$("#replyDialog").appendTo($("#reply"+reno));
+	$("rememo3").focus();	
+}
+
+function fn_replyReplyCancel(){
+	hideDiv("#replyDialog");
+}
+
+function fn_replyReplySave(){
+	if(!chkInputValue("#rememo3", "<s:message code="board.contents"/>">)) return;
+	
+	$.ajax({
+		url: "boardReplySave",
+		type: "post",
+		data: {brdno:$("#brdno").val(), reno:$("#reno3").val(), reparent:$("#reparent3").val(), rememo:$("#rememo3").val()},
+		success: function(result){
+			if(result!==""){
+				var parent = $("#reparent3").val();
+				var parentNodes = $(".replyParent"+parent);
+				if(parentNodes.length===0){
+					$("#replyItem"+parent).after(result);
+				} else {
+					parentNodes.last().after(result);
+				}
+				hideDiv("#replyDialog");
+				alert("<s:message code="msg.boardSave"/>");
+				#("#rememo3").val("");
+			} else{
+				alert("<s:message code="msg.err.server"/>");
+			}			
+		}		
+	})
+}
+
+function fn_addBoardLike(brdno){
+	$.ajax({
+		url: "addBoardLike",
+		type: "post",
+		data: {brdno:brdno},
+		success: function(result){
+			if(result==="OK"){
+				$("#boardLikeBtn").hide();
+				$("#boardLike").text(parseInt($("#boardLike").text())+1);
+			}				
+		}		
+	})
 }
 
 </script>
