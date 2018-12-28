@@ -96,7 +96,7 @@
 								<a href="sample3">샘플 3 : 차트</a>
 							</li>
 							<li>
-								<a href="sample4">샘플 4 : List & Excel</a>
+								<a href="sample4">샘플 4 : List and Excel</a>
 							</li>
 							<li>
 								<a href="sample5">샘플 5 : CRUD</a>

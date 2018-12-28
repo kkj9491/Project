@@ -77,9 +77,9 @@ public class CrudSvcImpl implements CrudSvc {
 	// 저장
 	@Override
 	public void deleteChk(String[] param) {
-		HashMap hm = new HashMap();
-		hm.put("list", param);
-		
+    	HashMap hm = new HashMap();
+    	hm.put("list", param) ;
+    	
 		sqlSession.insert("deleteChk", hm);
 		
 	}

@@ -4,22 +4,30 @@
 <mapper namespace="board">
 	<!-- test -->
 	<sql id="includeCrud">
-		
-	
+		WHERE CRDELETEFLAG='N'
+		<if test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
+			<foreach item="item" index="index" collection="searchTypeArr" separator="OR" open="AND(" close=")">
+				${item} LIKE CONCAT('%', #{searchKeyword}, '%')
+			</foreach>		
+		</if>	
 	</sql>
-
 	
 	<select id="selectCrudCount" resultType="Integer" parameterType="gu.common.SearchVO">>
-	
-	
+		SELECT COUNT(*)
+		FROM   TBL_CRUD TC
+		<include refid="includeCrud"/>
 	</select>
-
 	
 	<select id="selectCrudList" resultType="gu.crud.CrudVO" parameterType="gu.common.SearchVO">
-	
-	
+		SELECT CRNO, CRTITLE, TC.USERNO, USERNM, CRMEMO, DATE_FORMAT(CRDATE,'%Y-%m-%d') CRDATE
+		FROM   TBL_CRUD TC
+		INNER  JOIN COM_USER CU ON TC.USERNO=CU.USERNO
+		<include refid="includeCrud"/>
+		ORDER  BY CRNO DESC
+		<if test="rowStart != null">
+			LIMIT ${rowStart-1}, 10
+		</if>
 	</select>
-
 
 	<insert id="insertCrud" parameterType="gu.crud.CrudVO">
 	

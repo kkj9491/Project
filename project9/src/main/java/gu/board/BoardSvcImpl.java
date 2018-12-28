@@ -67,7 +67,9 @@ public class BoardSvcImpl implements BoardSvc {
 			}
 			
 			if(fileno != null) {
-				HashMap<String, String[]> fparam = new HashMap<String, String[]>(); 
+				HashMap<String, String[]> fparam = new HashMap<String, String[]>();
+				fparam.put("fileno", fileno);
+				sqlSession.insert("deleteBoardFile", fparam);
 			}
 			
 			for(FileVO f : filelist) {

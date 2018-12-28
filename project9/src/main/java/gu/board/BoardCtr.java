@@ -244,12 +244,23 @@ public class BoardCtr {
 	
 	
 	// 댓글 삭제
-	@RequestMapping(value = "/boardReplyDelete")
-	public void boardReplyDelete(HttpServletRequest request, HttpServletResponse response, BoardReplyVO boardReplyInfo) {
-		String userno = request.getSession().getAttribute("userno").toString();
-		
-		
-	}
-	
-	
+    @RequestMapping(value = "/boardReplyDelete")
+    public void boardReplyDelete(HttpServletRequest request, HttpServletResponse response, BoardReplyVO boardReplyInfo) {
+        String userno = request.getSession().getAttribute("userno").toString();
+        boardReplyInfo.setUserno(userno);
+
+        if (boardReplyInfo.getReno() != null && !"".equals(boardReplyInfo.getReno())) {    // check auth for update
+            String chk = boardSvc.selectBoardReplyAuthChk(boardReplyInfo);
+            if (chk == null) {
+                UtilEtc.responseJsonValue(response, "FailAuth");
+                return;
+            }
+        }
+        
+        if (!boardSvc.deleteBoardReply(boardReplyInfo.getReno()) ) {
+            UtilEtc.responseJsonValue(response, "Fail");
+        } else {
+            UtilEtc.responseJsonValue(response, "OK");
+        }
+    }
 }

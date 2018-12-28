@@ -76,7 +76,7 @@ function fn_formSubmit(){
 							<div class="row form-group">
 								<label class="col-lg-1"><s:message code="board.contents"/></label>
 								<div class="col-lg-9">
-									<textarea id="brdmemo" class="form-control" name="brdmemo" rows="10" cols="60"><c:out value=""${boardInfo.brdmemo}"/></textarea>
+									<textarea id="brdmemo" class="form-control" name="brdmemo" rows="10" cols="60"><c:out value="${boardInfo.brdmemo}"/></textarea>
 								</div>
 							</div>	
 							
@@ -90,7 +90,7 @@ function fn_formSubmit(){
 										<c:out value="${listview.filename}"/></a><c:out value="${listview.size2String()}"/><br/>
 									</c:forEach>
 									
-									<input type="file" name="uploadfile" mutiple="multiple" />																	
+									<input type="file" name="uploadfile" multiple="multiple" />																	
 								</div>
 							</div>					
 						
