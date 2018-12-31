@@ -30,31 +30,37 @@
 	</select>
 
 	<insert id="insertCrud" parameterType="gu.crud.CrudVO">
-	
-	
+		INSERT INTO TBL_CRUD(CRTITLE, USERNO, CRMEMO, CRDATE, CRDELETEFLAG)
+		VALUES (#{crtitle}, #{userno}, #{crmemo}, NOW(), 'N')	
 	</insert>
 
-
 	<update id="updateCrud" parameterType="gu.crud.CrudVO">
-	
-	
+		UPDATE TBL_CRUD
+		SET    CRTITLE=#{crtitle}, CRMEMO=#{crmemo}
+		WHERE  CRNO=#{crno}	
 	</update>
 
 
 	<select id="selectCrudOne" parameterType="gu.crud.CrudVO" resultType="gu.crud.CrudVO">
-	
-	
+		SELECT CRNO, CRTITLE, TC.USERNO, USERNM, CRMEMO, DATA_FORMAT(CRDATE,'%Y-%m-%d') CRDATE
+		FROM   TBL_CRUD TC
+		INNER  JOIN COM_USER CU ON TC.USERNO=CU.USERNO
+		WHERE  CRDELETEFLAG='N' AND CRNO=#{crno}	
 	</select>
-	
-	
+		
 	<delete id="deleteCrud" parameterType="gu.crud.CrudVO">
-	
-	
+		UPDATE TBL_BOARD
+		SET    CRDELETEFLAG='Y'
+		WHERE  CRNO=#{crno}	
 	</delete>
-	
-	
+		
 	<delete id="deleteChk" parameterType="java.util.Map">
-	
-	
+		UPDATE TBL_CRUD
+		SET    CRDELETEFLAG='Y'
+		WHERE  CRNO IN
+			<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>	
 	</delete>
+	
 </mapper>
